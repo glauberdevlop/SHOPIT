@@ -9,7 +9,7 @@ const {
     deleteProduct,
     createProductReview,
     getProductReviews,
-    deleteReview
+    deleteRewiew
 } = require('../controllers/productControllers');
 
 const {isAuthenticateUser, authorizeRoles } = require('../middlewares/auth')

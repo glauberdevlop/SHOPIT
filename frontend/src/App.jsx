@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import Header from "./components/layuot/Header";
-import Footer from './components/layuot/Footer';
+import Footer from "./components/layuot/Footer";
 
-import Home from './components/Home'
+import Home from "./components/Home";
 
 function App() {
   return (

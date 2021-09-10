@@ -1,31 +1,36 @@
 import {
-    ALL_PRODUCTS_REQUEST,
+    ALL_PRODUCTS_REQUESTS,
     ALL_PRODUCTS_SUCCESS,
     ALL_PRODUCTS_FAIL,
-    PRODUCT_DETAILS_REQUEST,
-    PRODUCT_DETAILS_SUCCESS,
-    PRODUCT_DETAILS_FAIL,
+    PRODUCTS_DETAILS_REQUEST,
+    PRODUCTS_DETAILS_SUCCESS,
+    PRODUCTS_DETAILS_FAIL,
     CLEAR_ERRORS
-} from '../constans/productConstants'
 
-export const productReducer = (state = { products: [] }, action) => {
+} from '../constants/productConstants';
+
+export const productReducers = (state = { products: [] }, action) => {
     switch (action.type) {
-        case ALL_PRODUCTS_REQUEST:
+
+        case ALL_PRODUCTS_REQUESTS:
             return {
                 loading: true,
-                products: [],
+                products: []
             }
+
         case ALL_PRODUCTS_SUCCESS:
             return {
                 loading: false,
                 products: action.payload.products,
                 productsCount: action.payload.productsCount
             }
+
         case ALL_PRODUCTS_FAIL:
             return {
                 loading: false,
                 error: action.payload
             }
+
         case CLEAR_ERRORS:
             return {
                 ...state,
@@ -33,29 +38,34 @@ export const productReducer = (state = { products: [] }, action) => {
             }
 
         default:
-            return state
+            return state;
     }
 }
 
 export const productDetailsReducer = (state = { product : {} }, action) => {
     switch (action.type) {
-
-        case PRODUCT_DETAILS_REQUEST:
+        case PRODUCTS_DETAILS_REQUEST:
             return {
                 ...state,
                 loading: true
             }
 
-        case PRODUCT_DETAILS_SUCCESS:
+        case PRODUCTS_DETAILS_SUCCESS:
             return {
-               loading: false,
-               product: action.payload
+                loading: false,
+                product: action.payload
             }
-        
-        case PRODUCT_DETAILS_FAIL:
+
+        case PRODUCTS_DETAILS_FAIL:
             return {
                 ...state,
-                error:null
+                error: null,
+            }
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
             }
 
         default:

@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 
+
 import MetaData from './layuot/MetaData';
 import Product from './product/Product';
 import Loader from './layuot/Loader';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
-import { getProducts } from '../actions/ProductActions';
-
+import { getProducts } from './actions/productActions';
 
 const Home = () => {
 
@@ -17,7 +17,9 @@ const Home = () => {
     const { loading, products, error, productsCount } = useSelector(state => state.products)
 
     useEffect(() => {
+
         if (error){
+            alert.success('success')
             return alert.error(error)
         }
 
@@ -30,9 +32,10 @@ const Home = () => {
             {loading ? <Loader /> : (
                 <Fragment>
                     <MetaData title={'Buy Best Products Online'} />
+
                     <h1 id="products_heading">Latest Products</h1>
 
-                    <section id="products" class="container mt-5">
+                    <section id="products" className="container mt-5">
                         <div className="row">
                             {products && products.map(product => (
                                 <Product key={product._id} product={product} />

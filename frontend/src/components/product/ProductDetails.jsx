@@ -6,7 +6,7 @@ import MetaData from '../../components/layuot/MetaData';
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux';
-import { getProductsDetails, clearErrors } from '../../components/actions/productActions'
+import { getProductsDetails, clearErrors } from '../../actions/productActions'
 
 const ProductDetails = ({ match }) => {
 

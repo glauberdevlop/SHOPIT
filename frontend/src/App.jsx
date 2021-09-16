@@ -6,6 +6,8 @@ import Footer from "./components/layuot/Footer";
 import Home from "./components/Home";
 import ProductDetails from './components/product/ProductDetails';
 
+import Login from './components/user/Login'
+
 function App() {
   return (
     <Router>
@@ -15,6 +17,8 @@ function App() {
           <Route path="/" component={Home} exact />
           <Route path="/search/:keyword" component={Home} exact />
           <Route path="/product/:id" component={ProductDetails} />
+
+          <Route path="/login" component={Login} /> 
         </div>
         <Footer />
       </div>

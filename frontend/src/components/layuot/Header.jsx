@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import { Link, Route } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert'
+import { useAlert } from 'react-alert';
+import { logout } from '../../actions/userActions'
 
 import Search from './Search';
 
@@ -13,6 +14,11 @@ const Header = () => {
     const dispatch = useDispatch();
 
     const { user, loading } = useSelector(state => state.auth)
+
+    const logoutHandler = () =>{
+        dispatch(logout())
+        alert.success('Logged out successfully.')
+    }
 
     return (
         <Fragment>
@@ -37,7 +43,7 @@ const Header = () => {
 
                     {user ? (
                         <div className="ml-4 dropdown d-inline">
-                            <Link to="#!" className="btn dropdown-toggle text-white"
+                            <Link to="#!" className="btn dropdown-toggle text-white mr-4"
                                 type="button" id="dropDownMenuButton" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
 
@@ -60,7 +66,7 @@ const Header = () => {
                                 )}
 
                                 <Link className="dropdown-item" to="/me">Profile</Link>
-                                <Link className="dropdown-item text-danger" to="/">
+                                <Link className="dropdown-item text-danger" to="/" onClick={logoutHandler}>
                                     Logout
                                 </Link>
 

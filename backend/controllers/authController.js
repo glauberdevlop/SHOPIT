@@ -24,8 +24,8 @@ exports.registerUser = catchAsycnErrors( async (req, res, next) => {
         email,
         password,
         avatar:{
-            public_id: result.public_id,
-            url: result.secure_url
+            public_id: ( await result).public_id,
+            url: (await result).secure_url
         }
     });
 
@@ -74,7 +74,7 @@ exports.forgotPassword = catchAsycnErrors(async (req, res, next) => {
     await user.save({validateBeforeSave: false})
 
     // Create reset password url
-    const resetUrl = `${req.protocol}://${req.get('host')}/api/v1/password/reset/${resetToken}`;
+    const resetUrl = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
     const message = `Yuor password reset token is as follow:\n\n${resetUrl}\n\nIf yuo have not
     requested this email, then ignore it`

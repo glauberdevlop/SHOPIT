@@ -22,6 +22,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
     "nodemailer": "^6.6.3",
+    "postcode-validator": "^3.5.3",
     "stripe": "^8.178.0",
     "validator": "^13.6.0"
   },

@@ -7,11 +7,17 @@ import Footer from "./components/layuot/Footer";
 import Home from "./components/Home";
 import ProductDetails from './components/product/ProductDetails';
 
+// Cart Imports
 import Cart from './components/cart/Cart'
 import Shipping from './components/cart/Shipping';
 import ConfirmOrder from './components/cart/ConfirmOrder';
 import Payment from './components/cart/Payment';
 import OrderSuccess from './components/cart/OrderSuccess';
+
+// Order Imports
+import ListOrders from './components/order/ListOrders';
+import OrderDetails from './components/order/OrderDetails';
+
 
 import Login from './components/user/Login';
 import Register from './components/user/Register';
@@ -21,6 +27,10 @@ import UpdatePassword from './components/user/UpdatePassword';
 import ForgotPassword from './components/user/ForgotPassword';
 import NewPassword from './components/user/NewPassword';
 
+// Admin imports
+import Dashboard from './components/admin/Dashboard';
+import ProductsList from './components/admin/ProductsList';
+import NewProduct from './components/admin/NewProduct';
 
 import ProtectedRoute from './components/route/ProtectedRoute';
 import { loadUser } from './actions/userActions';
@@ -30,7 +40,6 @@ import axios from 'axios';
 //Payment
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import OrderSucess from './components/cart/OrderSuccess';
 
 function App() {
 
@@ -63,7 +72,7 @@ function App() {
           <Route path="/cart" component={Cart} exact />
           <ProtectedRoute path="/shipping" component={Shipping} />
           <ProtectedRoute path="/order/confirm" component={ConfirmOrder} />
-          <ProtectedRoute path="/success" component={OrderSucess} />
+          <ProtectedRoute path="/success" component={OrderSuccess} />
           {stripeApiKey && 
             <Elements stripe={loadStripe(stripeApiKey)}>
               <ProtectedRoute path="/payment" component={Payment} />
@@ -77,8 +86,16 @@ function App() {
           <ProtectedRoute path="/me" component={Profile} exact />
           <ProtectedRoute path="/me/update" component={UpdateProfile} exact />
           <ProtectedRoute path="/password/update" component={UpdatePassword} exact />
+
+          <ProtectedRoute path="/orders/me" component={ListOrders} exact />
+          <ProtectedRoute path="/order/:id" component={OrderDetails} exact />
           
         </div>
+
+        <ProtectedRoute path="/dashboard" isAdmin={true} component={Dashboard} exact />
+        <ProtectedRoute path="/admin/products" isAdmin={true} component={ProductsList} exact />
+        <ProtectedRoute path="/admin/product" isAdmin={true} component={NewProduct} exact />
+        
         <Footer />
       </div>
     </Router>

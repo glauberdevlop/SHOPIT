@@ -1,39 +1,39 @@
-import React, { Fragment, useState } from "react";
-import { countries } from 'countries-list';
+import React, { Fragment, useState } from 'react'
+import { countries } from 'countries-list'
 
-import MetaData from '../../components/layuot/MetaData';
-import CheckoutSteps from "./CheckoutSteps";
+import MetaData from '../layuot/MetaData'
+import CheckoutSteps from './CheckoutSteps'
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { saveShippingInfo } from '../../actions/cartActions'
 
 const Shipping = ({ history }) => {
 
-    const countriesList = Object.values(countries);
+    const countriesList = Object.values(countries)
 
-    const { shippingInfo } = useSelector(state => state.cart);
+    const { shippingInfo } = useSelector(state => state.cart)
 
-    const [address, setAddress] = useState(shippingInfo.address);
-    const [city, setCity] = useState(shippingInfo.city);
-    const [postalCode, setPostalCode] = useState(shippingInfo.postalCode);
-    const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo);
-    const [country, setCountry] = useState(shippingInfo.country);
+    const [address, setAddress] = useState(shippingInfo.address)
+    const [city, setCity] = useState(shippingInfo.city)
+    const [postalCode, setPostalCode] = useState(shippingInfo.postalCode)
+    const [phoneNo, setPhoneNo] = useState(shippingInfo.phoneNo)
+    const [country, setCountry] = useState(shippingInfo.country)
 
     const dispatch = useDispatch();
 
     const submitHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        dispatch(saveShippingInfo({ address, city, postalCode, phoneNo, country }));
-
-        history.push('/order/confirm')
+        dispatch(saveShippingInfo({ address, city, phoneNo, postalCode, country }))
+        history.push('/confirm')
     }
 
     return (
         <Fragment>
+
             <MetaData title={'Shipping Info'} />
 
-            <CheckoutSteps shipping /> 
+            <CheckoutSteps shipping />
 
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
@@ -96,6 +96,7 @@ const Shipping = ({ history }) => {
                                 onChange={(e) => setCountry(e.target.value)}
                                 required
                             >
+
                                 {countriesList.map(country => (
                                     <option key={country.name} value={country.name}>
                                         {country.name}
@@ -111,12 +112,13 @@ const Shipping = ({ history }) => {
                             className="btn btn-block py-3"
                         >
                             CONTINUE
-                        </button>
+                            </button>
                     </form>
                 </div>
             </div>
+
         </Fragment>
     )
 }
 
-export default Shipping;
+export default Shipping

@@ -34,7 +34,7 @@ const UpdateProfile = ({ history }) => {
         }
 
         if (isUpdated) {
-            alert.success('user updated successfully');
+            alert.success('User updated successfully')
             dispatch(loadUser());
 
             history.push('/me')
@@ -68,11 +68,11 @@ const UpdateProfile = ({ history }) => {
         }
 
         reader.readAsDataURL(e.target.files[0])
-    }
 
+    }
     return (
         <Fragment>
-            <MetaData title={'Update Profile'} /> 
+            <MetaData title={'Update Profile'} />
 
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
@@ -121,27 +121,22 @@ const UpdateProfile = ({ history }) => {
                                         name='avatar'
                                         className='custom-file-input'
                                         id='customFile'
-                                        accept="image/*"
+                                        accept='image/*'
                                         onChange={onChange}
                                     />
                                     <label className='custom-file-label' htmlFor='customFile'>
                                         Choose Avatar
-                                    </label>
+                                </label>
                                 </div>
                             </div>
                         </div>
 
-                        <button type="submit" className="btn update-btn btn-block mt-4 mb-3" 
-                         disabled={loading ? true : false}
-                        >
-                            Update
-                        </button>
+                        <button type="submit" className="btn update-btn btn-block mt-4 mb-3" disabled={loading ? true : false} >Update</button>
                     </form>
                 </div>
             </div>
-
         </Fragment>
     )
 }
 
-export default UpdateProfile;
+export default UpdateProfile

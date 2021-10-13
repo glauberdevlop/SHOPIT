@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
-import MetaData from '../layuot/MetaData';
-import Loader from '../layuot/Loader';
+import Loader from '../layuot/Loader'
+import MetaData from '../layuot/MetaData'
 
 const Profile = () => {
 
@@ -13,7 +13,7 @@ const Profile = () => {
         <Fragment>
             {loading ? <Loader /> : (
                 <Fragment>
-                    <MetaData title={'Yuor Profile'} />
+                    <MetaData title={'Your Profile'} />
 
                     <h2 className="mt-5 ml-5">My Profile</h2>
                     <div className="row justify-content-around mt-5 user-info">
@@ -53,4 +53,4 @@ const Profile = () => {
     )
 }
 
-export default Profile;
+export default Profile

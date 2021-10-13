@@ -102,7 +102,7 @@ const Payment = ({ history }) => {
                        status: result.paymentIntent.status
                    }
 
-                   dispatch(createOrder(order))
+                   dispatch(createOrder(order));
 
                     history.push('/success')
                 } else {

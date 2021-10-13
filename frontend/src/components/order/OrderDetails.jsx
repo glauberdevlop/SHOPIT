@@ -1,37 +1,36 @@
-import React, { Fragment, useEffect } from "react";
-import { Link } from 'react-router-dom';
+import React, { Fragment, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
-import MetaData from '../../components/layuot/MetaData';
-import Loader from '../../components/layuot/Loader'
+import MetaData from '../layuot/MetaData'
+import Loader from '../layuot/Loader'
 
-import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
-import { getOrdersDetails, clearErrors } from '../../actions/orderActions';
+import { useAlert } from 'react-alert'
+import { useDispatch, useSelector } from 'react-redux'
+import { getOrderDetails, clearErrors } from '../../actions/orderActions'
 
-const OrderDetails = ({match}) => {
+const OrderDetails = ({ match }) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { loading, error, order } = useSelector(state => state.orderDetails);
-    const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus } = order;
+    const { loading, error, order = {} } = useSelector(state => state.orderDetails)
+    const { shippingInfo, orderItems, paymentInfo, user, totalPrice, orderStatus } = order
 
     useEffect(() => {
-        dispatch(getOrdersDetails(match.params.id))
+        dispatch(getOrderDetails(match.params.id));
 
         if (error) {
             alert.error(error);
             dispatch(clearErrors())
         }
-    }, [dispatch, alert, error, match.params.id]);
+    }, [dispatch, alert, error, match.params.id])
 
-    const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`;
+    const shippingDetails = shippingInfo && `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`
 
-    const isPaid = paymentInfo && paymentInfo.status === "succeded" ? true : false;
+    const isPaid = paymentInfo && paymentInfo.status === 'succeeded' ? true : false
 
     return (
         <Fragment>
-
             <MetaData title={'Order Details'} />
 
             {loading ? <Loader /> : (
@@ -50,14 +49,11 @@ const OrderDetails = ({match}) => {
                             <hr />
 
                             <h4 className="my-4">Payment</h4>
-                            <p className={isPaid ? "greenColor" : "redColor"} ><b>
-                                {isPaid ? "PAID" : "NOT PAID"}
-                            </b></p>
+                            <p className={isPaid ? "greenColor" : "redColor"}><b>{isPaid ? "PAID" : "NOT PAID"}</b></p>
 
 
                             <h4 className="my-4">Order Status:</h4>
-                            <p className={order.orderStatus && String(order.orderStatus).includes('Delivered') ?
-                                "greenColor" : "redColor"} ><b>{orderStatus}</b></p>
+                            <p className={order.orderStatus && String(order.orderStatus).includes('Delivered') ? "greenColor" : "redColor"} ><b>{orderStatus}</b></p>
 
 
                             <h4 className="my-4">Order Items:</h4>
@@ -71,7 +67,7 @@ const OrderDetails = ({match}) => {
                                         </div>
 
                                         <div className="col-5 col-lg-5">
-                                            <Link to={`/product/${item.product}`}></Link>
+                                            <Link to={`/products/${item.product}`}>{item.name}</Link>
                                         </div>
 
 
@@ -88,7 +84,6 @@ const OrderDetails = ({match}) => {
                             <hr />
                         </div>
                     </div>
-
                 </Fragment>
             )}
 
@@ -96,4 +91,4 @@ const OrderDetails = ({match}) => {
     )
 }
 
-export default OrderDetails;
+export default OrderDetails

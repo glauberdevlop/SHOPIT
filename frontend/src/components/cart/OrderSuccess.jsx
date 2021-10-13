@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import MetaData from '../layuot/MetaData';
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
+import MetaData from '../layuot/MetaData'
 
-const OrderSucess = () => {
+const OrderSuccess = () => {
     return (
         <Fragment>
 
@@ -14,7 +14,7 @@ const OrderSucess = () => {
 
                     <h2>Your Order has been placed successfully.</h2>
 
-                    <Link to="/order/me">Go to Orders</Link>
+                    <Link to="/orders/me">Go to Orders</Link>
                 </div>
 
             </div>
@@ -23,4 +23,4 @@ const OrderSucess = () => {
     )
 }
 
-export default OrderSucess;
+export default OrderSuccess

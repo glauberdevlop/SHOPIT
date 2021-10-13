@@ -5,7 +5,7 @@ const {
     getProducts,
     newProduct,
     getSingleProduct,
-    UpdateProduct,
+    updateProduct,
     deleteProduct,
     createProductReview,
     getProductReviews,
@@ -22,7 +22,7 @@ router.route('/product/:id').get(getSingleProduct);
 router.route('/admin/product/new').post(isAuthenticateUser, authorizeRoles('admin'), newProduct);
 
 router.route('/admin/product/:id')
-    .put(isAuthenticateUser, authorizeRoles('admin'), UpdateProduct)
+    .put(isAuthenticateUser, authorizeRoles('admin'), updateProduct)
     .delete(isAuthenticateUser, authorizeRoles('admin'), deleteProduct);
 
 router.route('/review').put(isAuthenticateUser, createProductReview)

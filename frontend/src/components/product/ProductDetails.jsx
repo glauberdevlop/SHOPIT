@@ -1,32 +1,31 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react'
 import { Carousel } from 'react-bootstrap'
 
-import Loader from '../../components/layuot/Loader';
-import MetaData from '../../components/layuot/MetaData';
-import ListReviews from '../review/ListReviews';
+import Loader from '../layuot/Loader'
+import MetaData from '../layuot/MetaData'
+import ListReviews from '../review/ListReviews'
 
-import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProductsDetails, clearErrors, newReview } from '../../actions/productActions';
-import { addItemToCart } from '../../actions/cartActions';
-
-import { NEW_REVIEW_RESET } from '../../constants/productConstants';
+import { useAlert } from 'react-alert'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProductDetails, newReview, clearErrors } from '../../actions/productActions'
+import { addItemToCart } from '../../actions/cartActions'
+import { NEW_REVIEW_RESET } from '../../constants/productConstants'
 
 const ProductDetails = ({ match }) => {
 
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1)
     const [rating, setRating] = useState(0);
-    const [comment, setComment] = useState('')
+    const [comment, setComment] = useState('');
 
     const dispatch = useDispatch();
     const alert = useAlert();
 
-    const { loading, error, product } = useSelector(state => state.productDetails);
-    const { user } = useSelector(state => state.auth);
+    const { loading, error, product } = useSelector(state => state.productDetails)
+    const { user } = useSelector(state => state.auth)
     const { error: reviewError, success } = useSelector(state => state.newReview)
 
     useEffect(() => {
-        dispatch(getProductsDetails(match.params.id));
+        dispatch(getProductDetails(match.params.id))
 
         if (error) {
             alert.error(error);
@@ -38,20 +37,20 @@ const ProductDetails = ({ match }) => {
             dispatch(clearErrors())
         }
 
-        if(success){
+        if (success) {
             alert.success('Reivew posted successfully')
-            dispatch({type: NEW_REVIEW_RESET})
+            dispatch({ type: NEW_REVIEW_RESET })
         }
 
-    }, [dispatch, alert, error, reviewError, match.params.id])
+    }, [dispatch, alert, error, reviewError, match.params.id, success])
 
     const addToCart = () => {
-        dispatch(addItemToCart(match.params.id, quantity))
+        dispatch(addItemToCart(match.params.id, quantity));
         alert.success('Item Added to Cart')
     }
 
     const increaseQty = () => {
-        const count = document.querySelector('.count');
+        const count = document.querySelector('.count')
 
         if (count.valueAsNumber >= product.stock) return;
 
@@ -59,44 +58,44 @@ const ProductDetails = ({ match }) => {
         setQuantity(qty)
     }
 
-    const decreateQty = () => {
-        const count = document.querySelector('.count');
+    const decreaseQty = () => {
+
+        const count = document.querySelector('.count')
 
         if (count.valueAsNumber <= 1) return;
 
         const qty = count.valueAsNumber - 1;
         setQuantity(qty)
+
     }
 
-    function setUserRattings() {
-        const stars = document.querySelectorAll('.star')
+    function setUserRatings() {
+        const stars = document.querySelectorAll('.star');
 
         stars.forEach((star, index) => {
-            star.starValue = index + 1
-
-            console.log('Test');
+            star.starValue = index + 1;
 
             ['click', 'mouseover', 'mouseout'].forEach(function (e) {
-                star.addEventListener(e, showRattings)
+                star.addEventListener(e, showRatings);
             })
         })
 
-        function showRattings(e) {
+        function showRatings(e) {
             stars.forEach((star, index) => {
                 if (e.type === 'click') {
-                    if(index < this.starValue){
+                    if (index < this.starValue) {
                         star.classList.add('orange');
 
                         setRating(this.starValue)
-                    }else{
+                    } else {
                         star.classList.remove('orange')
                     }
                 }
 
                 if (e.type === 'mouseover') {
-                    if(index < this.starValue){
-                        star.classList.add('yellow')
-                    }else{
+                    if (index < this.starValue) {
+                        star.classList.add('yellow');
+                    } else {
                         star.classList.remove('yellow')
                     }
                 }
@@ -115,7 +114,7 @@ const ProductDetails = ({ match }) => {
         formData.set('comment', comment);
         formData.set('productId', match.params.id);
 
-        dispatch(newReview(formData))
+        dispatch(newReview(formData));
     }
 
     return (
@@ -123,9 +122,9 @@ const ProductDetails = ({ match }) => {
             {loading ? <Loader /> : (
                 <Fragment>
                     <MetaData title={product.name} />
-                    <div className="row f-flex justify-content-around">
+                    <div className="row d-flex justify-content-around">
                         <div className="col-12 col-lg-5 img-fluid" id="product_image">
-                            <Carousel pause="hover">
+                            <Carousel pause='hover'>
                                 {product.images && product.images.map(image => (
                                     <Carousel.Item key={image.public_id}>
                                         <img className="d-block w-100" src={image.url} alt={product.title} />
@@ -149,20 +148,17 @@ const ProductDetails = ({ match }) => {
 
                             <p id="product_price">${product.price}</p>
                             <div className="stockCounter d-inline">
-                                <span className="btn btn-danger minus" onClick={decreateQty}>-</span>
+                                <span className="btn btn-danger minus" onClick={decreaseQty}>-</span>
 
                                 <input type="number" className="form-control count d-inline" value={quantity} readOnly />
 
                                 <span className="btn btn-primary plus" onClick={increaseQty}>+</span>
                             </div>
-                            <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4"
-                                onClick={addToCart} disabled={product.stock === 0}>Add to Cart</button>
+                            <button type="button" id="cart_btn" className="btn btn-primary d-inline ml-4" disabled={product.stock === 0} onClick={addToCart}>Add to Cart</button>
 
                             <hr />
 
-                            <p>Status: <span id="stock_status" className={product.stock > 0 ? 'greenColor' : 'redColor'}>
-                                {product.stock > 0 ? 'In Stock' : 'Out of Stock'}
-                            </span></p>
+                            <p>Status: <span id="stock_status" className={product.stock > 0 ? 'greenColor' : 'redColor'} >{product.stock > 0 ? 'In Stock' : 'Out of Stock'}</span></p>
 
                             <hr />
 
@@ -171,13 +167,11 @@ const ProductDetails = ({ match }) => {
                             <hr />
                             <p id="product_seller mb-3">Sold by: <strong>{product.seller}</strong></p>
 
-                            {user ? <button id="review_btn" type="button" className="btn btn-primary mt-4"
-                                data-toggle="modal" data-target="#ratingModal" onClick={setUserRattings}>
+                            {user ? <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal" onClick={setUserRatings}>
                                 Submit Your Review
-                            </button> :
-                                <div className="alert alert-danger mt-5" type="alert">
-                                    Login Post To Yuor Review
-                                </div>
+                            </button>
+                                :
+                                <div className="alert alert-danger mt-5" type='alert'>Login to post your review.</div>
                             }
 
 
@@ -203,36 +197,34 @@ const ProductDetails = ({ match }) => {
                                                         <li className="star"><i className="fa fa-star"></i></li>
                                                     </ul>
 
-                                                    <textarea name="review" id="review" 
-                                                        className="form-control mt-3" 
+                                                    <textarea
+                                                        name="review"
+                                                        id="review" className="form-control mt-3"
                                                         value={comment}
-                                                        onChange={(e) => setComment(e.target.value)}>
+                                                        onChange={(e) => setComment(e.target.value)}
+                                                    >
 
                                                     </textarea>
 
-                                                    <button className="btn my-3 float-right review-btn px-4 text-white" 
-                                                    data-dismiss="modal" aria-label="Close" onClick={reviewHandler}>
-                                                        Submit
-                                                    </button>
+                                                    <button className="btn my-3 float-right review-btn px-4 text-white" onClick={reviewHandler} data-dismiss="modal" aria-label="Close">Submit</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
 
                     {product.reviews && product.reviews.length > 0 && (
-                       <ListReviews reviews={product.reviews} />
+                        <ListReviews reviews={product.reviews} />
                     )}
+
                 </Fragment>
             )}
         </Fragment>
     )
 }
 
-export default ProductDetails;
+export default ProductDetails

@@ -24,7 +24,7 @@ const NewPassword = ({ history, match }) => {
         }
 
         if (success) {
-            alert.success('Password update successfully')
+            alert.success('Password updated successfully')
             history.push('/login')
         }
 
@@ -40,11 +40,10 @@ const NewPassword = ({ history, match }) => {
         dispatch(resetPassword(match.params.token, formData))
     }
 
-
     return (
         <Fragment>
 
-            <MetaData title="New Password Reset" />
+            <MetaData title={'New Password Reset'} />
 
             <div className="row wrapper">
                 <div className="col-10 col-lg-5">
@@ -88,4 +87,4 @@ const NewPassword = ({ history, match }) => {
     )
 }
 
-export default NewPassword;
+export default NewPassword

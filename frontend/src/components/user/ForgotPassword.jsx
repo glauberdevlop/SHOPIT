@@ -13,7 +13,7 @@ const ForgotPassword = () => {
     const alert = useAlert();
     const dispatch = useDispatch();
 
-    const { error, message, loading } = useSelector(state => state.forgotPassword)
+    const { error, loading, message } = useSelector(state => state.forgotPassword)
 
     useEffect(() => {
 
@@ -23,7 +23,7 @@ const ForgotPassword = () => {
         }
 
         if (message) {
-            alert.success(message);
+            alert.success(message)
         }
 
     }, [dispatch, alert, error, message])
@@ -60,18 +60,16 @@ const ForgotPassword = () => {
                             id="forgot_password_button"
                             type="submit"
                             className="btn btn-block py-3"
-                            disabled={loading ? true : false}
-                            >
+                            disabled={loading ? true : false} >
                             Send Email
-                        </button>
+                    </button>
 
                     </form>
                 </div>
             </div>
 
         </Fragment>
-
     )
 }
 
-export default ForgotPassword;
+export default ForgotPassword

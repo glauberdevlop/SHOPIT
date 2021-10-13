@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 
 const Search = ({ history }) => {
 
-    const [keyword, setKeyword] = useState('')
+    const [keyword, setKeyword] = useState('');
 
     const searchHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        if (keyword.trim()){
+        if (keyword.trim()) {
             history.push(`/search/${keyword}`)
         } else {
             history.push('/')
         }
-    };
+    }
 
     return (
-        <form onSubmit={searchHandler}>
+        <form onSubmit={searchHandler} >
             <div className="input-group">
                 <input
                     type="text"
@@ -34,4 +34,4 @@ const Search = ({ history }) => {
     )
 }
 
-export default Search;
+export default Search

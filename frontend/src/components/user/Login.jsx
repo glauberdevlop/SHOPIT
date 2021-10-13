@@ -1,11 +1,11 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
-import Loader from '../layuot/Loader';
-import MetaData from '../layuot/MetaData';
+import Loader from '../layuot/Loader'
+import MetaData from '../layuot/MetaData'
 
-import { useAlert } from 'react-alert';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert'
+import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/userActions'
 
 const Login = ({ history, location }) => {
@@ -18,7 +18,7 @@ const Login = ({ history, location }) => {
 
     const { isAuthenticated, error, loading } = useSelector(state => state.auth);
 
-    const redirect = location.search ? location.search.split('=')[1] : '/' 
+    const redirect = location.search ? location.search.split('=')[1] : '/'
 
     useEffect(() => {
 
@@ -28,10 +28,10 @@ const Login = ({ history, location }) => {
 
         if (error) {
             alert.error(error);
-            dispatch(clearErrors())
+            dispatch(clearErrors());
         }
 
-    }, [dispatch, alert, isAuthenticated, error, history]);
+    }, [dispatch, alert, isAuthenticated, error, history])
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -84,10 +84,12 @@ const Login = ({ history, location }) => {
                             </form>
                         </div>
                     </div>
+
+
                 </Fragment>
             )}
         </Fragment>
     )
 }
 
-export default Login;
+export default Login

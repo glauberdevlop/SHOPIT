@@ -1,9 +1,9 @@
 import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
-import MetaData from '../layuot/MetaData'
-import Loader from '../layuot/Loader'
-import Sidebar from './SideBar'
+import MetaData from '../layout/MetaData'
+import Loader from '../layout/Loader'
+import Sidebar from './Sidebar'
 
 import { useDispatch, useSelector } from 'react-redux'
 

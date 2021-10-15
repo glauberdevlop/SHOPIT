@@ -20,7 +20,7 @@ import {
     ORDER_DETAILS_SUCCESS,
     ORDER_DETAILS_FAIL,
     CLEAR_ERRORS
-} from '../constants/orderConstant'
+} from '../constants/orderConstants'
 
 export const createOrder = (order) => async (dispatch, getState) => {
     try {

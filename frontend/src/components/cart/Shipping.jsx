@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react'
 import { countries } from 'countries-list'
 
-import MetaData from '../layuot/MetaData'
+import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
 import { useDispatch, useSelector } from 'react-redux'

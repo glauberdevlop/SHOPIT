@@ -3,9 +3,9 @@ import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css';
 
-import MetaData from './layuot/MetaData'
+import MetaData from './layout/MetaData'
 import Product from './product/Product'
-import Loader from './layuot/Loader'
+import Loader from './layout/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { useAlert } from 'react-alert';

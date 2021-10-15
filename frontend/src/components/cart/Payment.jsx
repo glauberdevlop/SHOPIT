@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useEffect } from 'react'
 
-import MetaData from '../../components/layuot/MetaData';
-import CheckoutSteps from "./CheckoutSteps";
+import MetaData from '../layout/MetaData'
+import CheckoutSteps from './CheckoutSteps'
 
 import { useAlert } from 'react-alert'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 import { createOrder, clearErrors } from '../../actions/orderActions'
 
-import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardNumberElement, CardExpiryElement, CardCvcElement } from '@stripe/react-stripe-js'
+
 import axios from 'axios'
 
 const options = {
@@ -25,10 +26,10 @@ const Payment = ({ history }) => {
 
     const alert = useAlert();
     const stripe = useStripe();
-    const element = useElements();
+    const elements = useElements();
     const dispatch = useDispatch();
 
-    const { user } = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.auth)
     const { cartItems, shippingInfo } = useSelector(state => state.cart);
     const { error } = useSelector(state => state.newOrder)
 
@@ -39,7 +40,7 @@ const Payment = ({ history }) => {
             dispatch(clearErrors())
         }
 
-    }, [dispatch, error, alert]);
+    }, [dispatch, alert, error])
 
     const order = {
         orderItems: cartItems,
@@ -47,15 +48,15 @@ const Payment = ({ history }) => {
     }
 
     const orderInfo = JSON.parse(sessionStorage.getItem('orderInfo'));
-    if(orderInfo){
+    if (orderInfo) {
         order.itemsPrice = orderInfo.itemsPrice
-        order.shippingInfo = orderInfo.shippingInfo
+        order.shippingPrice = orderInfo.shippingPrice
         order.taxPrice = orderInfo.taxPrice
         order.totalPrice = orderInfo.totalPrice
     }
 
     const paymentData = {
-        amount : Math.round(orderInfo.totalPrice * 100)
+        amount: Math.round(orderInfo.totalPrice * 100)
     }
 
     const submitHandler = async (e) => {
@@ -72,17 +73,19 @@ const Payment = ({ history }) => {
                 }
             }
 
-            res = await axios.post('/api/v1/payment/process', paymentData, config);
+            res = await axios.post('/api/v1/payment/process', paymentData, config)
 
             const clientSecret = res.data.client_secret;
 
-            if (!stripe || !element) {
+            console.log(clientSecret);
+
+            if (!stripe || !elements) {
                 return;
             }
 
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
-                    card: element.getElement(CardNumberElement),
+                    card: elements.getElement(CardNumberElement),
                     billing_details: {
                         name: user.name,
                         email: user.email
@@ -94,15 +97,16 @@ const Payment = ({ history }) => {
                 alert.error(result.error.message);
                 document.querySelector('#pay_btn').disabled = false;
             } else {
-                // the payment process or not
+
+                // The payment is processed or not
                 if (result.paymentIntent.status === 'succeeded') {
 
-                   order.paymentInfo = {
-                       id: result.paymentIntent.id,
-                       status: result.paymentIntent.status
-                   }
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
 
-                   dispatch(createOrder(order));
+                    dispatch(createOrder(order))
 
                     history.push('/success')
                 } else {
@@ -110,17 +114,15 @@ const Payment = ({ history }) => {
                 }
             }
 
+
         } catch (error) {
             document.querySelector('#pay_btn').disabled = false;
-            alert.error(error.response.data.message);
-
-            console.log(error.response.data)
+            alert.error(error.response.data.message)
         }
     }
 
     return (
         <Fragment>
-
             <MetaData title={'Payment'} />
 
             <CheckoutSteps shipping confirmOrder payment />
@@ -165,7 +167,7 @@ const Payment = ({ history }) => {
                             type="submit"
                             className="btn btn-block py-3"
                         >
-                            Pay {` -  ${orderInfo && orderInfo.totalPrice}`}
+                            Pay {` - ${orderInfo && orderInfo.totalPrice}`}
                         </button>
 
                     </form>
@@ -176,4 +178,4 @@ const Payment = ({ history }) => {
     )
 }
 
-export default Payment;
+export default Payment

@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-import MetaData from '../layuot/MetaData'
+import MetaData from '../layout/MetaData'
 
 const OrderSuccess = () => {
     return (

@@ -2,14 +2,14 @@ import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { MDBDataTable } from 'mdbreact'
 
-import MetaData from '../layuot/MetaData'
-import Loader from '../layuot/Loader'
-import Sidebar from './SideBar'
+import MetaData from '../layout/MetaData'
+import Loader from '../layout/Loader'
+import Sidebar from './Sidebar'
 
 import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { allOrders, deleteOrder, clearErrors } from '../../actions/orderActions'
-import { DELETE_ORDER_RESET } from '../../constants/orderConstant'
+import { DELETE_ORDER_RESET } from '../../constants/orderConstants'
 
 const OrdersList = ({ history }) => {
 

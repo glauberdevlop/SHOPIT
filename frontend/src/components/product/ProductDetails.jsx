@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Carousel } from 'react-bootstrap'
 
-import Loader from '../layuot/Loader'
-import MetaData from '../layuot/MetaData'
+import Loader from '../layout/Loader'
+import MetaData from '../layout/MetaData'
 import ListReviews from '../review/ListReviews'
 
 import { useAlert } from 'react-alert'

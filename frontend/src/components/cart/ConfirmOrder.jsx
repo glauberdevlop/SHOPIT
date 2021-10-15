@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
-import MetaData from '../layuot/MetaData'
+import MetaData from '../layout/MetaData'
 import CheckoutSteps from './CheckoutSteps'
 
 import { useSelector } from 'react-redux'
